@@ -2,6 +2,7 @@ package io.kebblar.petstore.api.mapper;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -42,6 +43,9 @@ public interface FacturaMapper {
 	
 	@Select("Select id, fecha, clienteRfc, idProducto, precio, iva FROM Factura WHERE idProducto = #{idProd}")
 	List<Factura> findByIdProd(int idProd) throws SQLException;
+	
+	@Select("${edgar}")
+	List<Integer> getPetsByCriteria(Map<String, String> map);
 	
 	
 }

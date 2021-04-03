@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import io.kebblar.petstore.api.exceptions.BusinessException;
 import io.kebblar.petstore.api.exceptions.ProductoInexistenteException;
 import io.kebblar.petstore.api.mapper.FacturaMapper;
+import io.kebblar.petstore.api.model.Criterio;
 import io.kebblar.petstore.api.model.Factura;
+import io.kebblar.petstore.api.support.SQLBuilder;
 @Service
 public class FacturaServiceImpl implements FacturaService{
 private FacturaMapper fm;
@@ -43,5 +45,13 @@ private FacturaMapper fm;
 			throw new BusinessException(e.getMessage());
 		}
 	}
+
+	@Override
+	public List<Integer> getPetsByCriteria(List<Criterio> criterios) throws BusinessException {
+		SQLBuilder sqlBuilder = new SQLBuilder(criterios);
+		return this.fm.getPetsByCriteria(sqlBuilder.produceMap());
+	}
+	
+	
 
 }
